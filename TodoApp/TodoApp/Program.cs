@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoApp.DependencyServices;
 using TodoApp.Domain.Database;
 using TodoApp.Middlewares;
+using TodoApp.Utiities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ApplyDatabaseMigrations();
 }
 
 app.UseCors("CorsPolicy");
