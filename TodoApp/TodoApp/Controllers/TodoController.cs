@@ -27,7 +27,7 @@ public class TodoController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult<ApiResponse<PagedResponse<Todo>>>> GetAllTodos(TodoSpec spec)
+    public async Task<ActionResult<ApiResponse<PagedResponse<Todo>>>> GetAllTodos([FromQuery] TodoSpec spec)
     {
         // Ensure only the current user's todos are returned
         if (spec.Filters == null)
@@ -40,7 +40,7 @@ public class TodoController : BaseController
     }
 
     [HttpGet("{id}")]
-    private async Task<ActionResult<ApiResponse<Todo>>> GetTodoById(Guid id)
+    public async Task<ActionResult<ApiResponse<Todo>>> GetTodoById(Guid id)
     {
         Todo? todo = await _todoService.GetByIdAsync(id);
         return todo is null ? throw new NotFoundException("Todo not found") : Ok(new ApiResponse<Todo>(todo));

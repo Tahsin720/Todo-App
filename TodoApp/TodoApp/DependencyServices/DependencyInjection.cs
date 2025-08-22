@@ -73,6 +73,8 @@ public static class DependencyInjection
                      options.TokenValidationParameters =
                           new TokenValidationParameters
                           {
+                              ValidIssuer = configuration["Tokens:Issuer"],
+                              ValidAudience = configuration["Tokens:Audience"],
                               ValidateIssuerSigningKey = true,
                               ValidateLifetime = true,
                               ClockSkew = TimeSpan.Zero,
@@ -96,7 +98,7 @@ public static class DependencyInjection
 
         services.Configure<MvcOptions>(options =>
         {
-            options.Filters.Add(new AuthorizeFilter("Authenticated"));
+            options.Filters.Add(new AuthorizeFilter());
         });
 
         //Auto Mapper

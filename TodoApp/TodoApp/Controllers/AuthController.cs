@@ -45,17 +45,11 @@ namespace TodoApp.Controllers
 
             ValidationResult validationResult = await _validate.ValidateAsync(model);
 
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
+            if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
             var user = await _userManager.FindByEmailAsync(model.Email);
 
-            if (user is null)
-            {
-                throw new NotFoundException("User Not Found!");
-            }
+            if (user is null) throw new NotFoundException("User Not Found!");
 
             if (_hasher.VerifyHashedPassword(user, user.PasswordHash ?? "", model.Password) == PasswordVerificationResult.Failed)
             {
@@ -71,15 +65,12 @@ namespace TodoApp.Controllers
 
             ValidationResult validationResult = await _validate.ValidateAsync(model);
 
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
+            if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
             User user = _mapper.Map<User>(model);
-            var pass = model.Email.Substring(0, 1).ToUpper() + model.Email.Substring(1, 1).ToLower() + "@12345";
+            user.UserName = model.Email;
 
-            IdentityResult result = await _userManager.CreateAsync(user, pass);
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
             return result.Succeeded ? Ok(new ApiResponse<string>("Successfully Created!"))
                                     : throw new BadRequestException("User creation failed due to identity errors.");

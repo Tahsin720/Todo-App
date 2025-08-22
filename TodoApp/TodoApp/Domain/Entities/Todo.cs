@@ -1,4 +1,6 @@
-﻿namespace TodoApp.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace TodoApp.Domain.Entities
 {
     public class Todo : BaseEntity
     {
@@ -9,6 +11,7 @@
         public required string UserId { get; set; }
 
         // Navigation property
+        [JsonIgnore]
         public User User { get; set; } = null!;
     }
 }
