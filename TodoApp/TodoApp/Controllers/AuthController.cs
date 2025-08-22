@@ -59,6 +59,7 @@ namespace TodoApp.Controllers
             var token = await _tokenService.GetTokens(user);
             return Ok(new ApiResponse<TokenModel>(token));
         }
+
         [HttpPost("signup")]
         public async Task<ActionResult<ApiResponse<string>>> CreateUser(UserCreateDto model)
         {
