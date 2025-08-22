@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.Configurations.Validation;
 using TodoApp.DataAccess.QuerySpecs;
@@ -14,6 +15,7 @@ namespace TodoApp.Controllers;
 
 [Route("api/todos/")]
 [ApiController]
+[Authorize]
 public class TodoController : BaseController
 {
     private readonly ITodoService _todoService;

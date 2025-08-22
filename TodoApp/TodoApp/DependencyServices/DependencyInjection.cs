@@ -96,10 +96,11 @@ public static class DependencyInjection
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         }).AddXmlDataContractSerializerFormatters();
 
-        services.Configure<MvcOptions>(options =>
-        {
-            options.Filters.Add(new AuthorizeFilter());
-        });
+        //If you want to use Authorize attribute globally, then uncomment the following lines
+        //services.Configure<MvcOptions>(options =>
+        //{
+        //    options.Filters.Add(new AuthorizeFilter());
+        //});
 
         //Auto Mapper
         services.AddAutoMapper(typeof(Program));
@@ -109,9 +110,9 @@ public static class DependencyInjection
         {
             options.AddPolicy("AllowAll", policy =>
             {
-                policy.AllowAnyOrigin()
-                      .AllowAnyHeader()
-                      .AllowAnyMethod();
+                policy.AllowAnyOrigin() // You can specify specific origins if needed
+                      .AllowAnyHeader() // You can specify specific headers if needed
+                      .AllowAnyMethod(); // You can specify specific methods if needed
             });
         });
 

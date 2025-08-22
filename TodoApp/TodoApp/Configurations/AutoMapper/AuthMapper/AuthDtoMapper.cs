@@ -8,7 +8,6 @@ namespace TodoApp.Configurations.AutoMapper.AuthMapper
     {
         public AuthDtoMapper()
         {
-
             CreateMap<User, UserCreateDto>().ReverseMap();
         }
     }

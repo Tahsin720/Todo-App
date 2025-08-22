@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using TodoApp.DependencyServices;
-using TodoApp.Domain.Database;
 using TodoApp.Middlewares;
 using TodoApp.Utiities;
 
@@ -14,13 +12,6 @@ builder.Services.ConfigInjection(builder.Configuration);
 builder.Services.AddValidationServices();
 
 var app = builder.Build();
-
-// Auto-migrate and update database on startup
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
