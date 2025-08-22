@@ -69,6 +69,7 @@ public class TodoController : BaseController
 
         Todo todo = await _todoService.GetByIdAsync(id);
         _mapper.Map(model, todo);
+        todo.UpdatedAt = DateTime.UtcNow;
 
         bool isUpdated = await _todoService.UpdateAsync(todo);
 

@@ -57,7 +57,7 @@ public static class DependencyInjection
         #region Authentication
         services.AddIdentity<User, IdentityRole>(x =>
         {
-            x.Password.RequiredLength = 4;
+            x.Password.RequiredLength = 8;
             x.Password.RequireNonAlphanumeric = false;
             x.Password.RequireUppercase = false;
             x.Password.RequireLowercase = false;
